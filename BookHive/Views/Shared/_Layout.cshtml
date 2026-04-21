@@ -48,9 +48,12 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Profile" asp-action="Index">Profile</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Cart" asp-action="Index">Cart</a>
-                            </li>
+                            @if (!User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Cart" asp-action="Index">Cart</a>
+                                </li>
+                            }
                             <li class="nav-item">
                                 <span class="nav-link nav-welcome">Hello, @User.Identity?.Name</span>
                             </li>
