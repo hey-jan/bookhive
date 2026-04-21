@@ -64,7 +64,16 @@
                         <p class="mb-1 text-muted">by @book.Author</p>
                         <p class="fw-semibold mb-2">@book.Price.ToString("C")</p>
                         <p class="card-text text-muted flex-grow-1">@book.Description</p>
-                        <a asp-controller="Books" asp-action="Details" asp-route-id="@book.Id" class="btn btn-outline-primary mt-3">View details</a>
+                        <div class="d-flex gap-2 mt-3">
+                            <a asp-controller="Books" asp-action="Details" asp-route-id="@book.Id" class="btn btn-outline-primary">View details</a>
+                            @if (User.Identity?.IsAuthenticated == true)
+                            {
+                                <form asp-controller="Cart" asp-action="Add" method="post">
+                                    <input type="hidden" name="bookId" value="@book.Id" />
+                                    <button type="submit" class="btn btn-primary">Add to cart</button>
+                                </form>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
