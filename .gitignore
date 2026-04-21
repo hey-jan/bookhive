@@ -8,3 +8,4 @@
 *.db-wal
 appsettings.Development.local.json
 BookHive/wwwroot/uploads/
+TestResults/

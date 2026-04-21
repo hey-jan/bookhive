@@ -1,26 +1,66 @@
 # BookHive
 
-BookHive is an ASP.NET Core MVC online bookstore application with authentication, catalog management, shopping cart, checkout, and admin workflows backed by `BookHiveDB`.
+BookHive is an ASP.NET Core MVC online bookstore backed by SQL Server LocalDB and Entity Framework Core. It includes identity-based authentication, profile management, admin book inventory workflows, search and filtering, cart and checkout flows, profile and cover image uploads, JSON APIs for storefront interactions, and an admin dashboard.
 
-## Repository structure
+## Tech stack
 
-- `BookHive/` - main ASP.NET Core MVC application
-- `frontend/` - frontend planning and shared UI notes
-- `backend/` - backend planning and implementation notes
+- ASP.NET Core MVC on `.NET 10`
+- Entity Framework Core 10 with SQL Server
+- ASP.NET Core Identity for authentication and password hashing
+- Razor views with Bootstrap and custom CSS
+- xUnit with EF Core InMemory for automated service tests
 
-## Planned feature milestones
+## Project structure
 
-1. Project setup and repository initialization
-2. Dependencies, configuration, and database connectivity
-3. Database schema and migrations
-4. Authentication and profile management
-5. Book catalog, search, cart, and checkout
-6. Admin dashboard, testing, and cleanup
+- `BookHive/` - main MVC application
+- `BookHive/Data` - EF Core context and migrations
+- `BookHive/Areas/Admin` - admin dashboard and catalog management
+- `BookHive/Controllers/Api` - JSON endpoints used by enhanced frontend interactions
+- `BookHive.Tests/` - automated tests
+- `frontend/` and `backend/` - reserved organizational folders requested during setup
 
-## Getting started
+## Implemented features
 
-1. Install the .NET SDK required by the project.
-2. Update the database connection string in `BookHive/appsettings.json` or user secrets.
-3. Run the application from the `BookHive/` project directory.
+- User registration, login, logout, and role seeding
+- User profile view, edit, delete, and profile image upload
+- Admin book create, edit, delete, and cover image upload
+- Public catalog listing, details, search, and filtering
+- Shopping cart add, update, and remove flows
+- Checkout, order persistence, and order summaries
+- Admin dashboard for users, orders, inventory, and order status updates
+- API-backed cart interactions with client-side success and error feedback
 
-More detailed setup and feature documentation will be expanded as implementation progresses.
+## Configuration
+
+Default configuration points to a LocalDB database named `BookHiveDB`.
+
+Use the following environment variables to override local settings:
+
+```powershell
+ConnectionStrings__BookHiveDB=Server=(localdb)\MSSQLLocalDB;Database=BookHiveDB;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True
+Admin__Email=admin@bookhive.local
+Admin__Password=ChangeMe123
+```
+
+The application automatically applies migrations and seeds `Admin` and `Customer` roles on startup. If the configured admin account does not exist, it is created automatically.
+
+## Run locally
+
+```powershell
+dotnet build BookHive.slnx
+dotnet run --project BookHive\BookHive.csproj
+```
+
+Open the application URL printed by ASP.NET Core after startup.
+
+## Test
+
+```powershell
+dotnet test BookHive.slnx
+```
+
+## Notes
+
+- Uploaded files are stored under `BookHive/wwwroot/uploads/`.
+- The initial migration is committed in `BookHive/Data/Migrations/`.
+- Cart validation prevents quantities from exceeding available inventory before checkout.
