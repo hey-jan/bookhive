@@ -50,12 +50,6 @@ a:hover {
   border-color: rgba(159, 79, 47, 0.4);
 }
 
-.site-shell {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
 .site-header {
   padding: 1rem 0 0;
 }
@@ -90,8 +84,7 @@ a:hover {
 }
 
 .site-main {
-  flex: 1;
-  padding: 2rem 0 3rem;
+  padding: 2rem 0;
 }
 
 .surface-panel {
@@ -197,8 +190,7 @@ a:hover {
 }
 
 .footer {
-  margin-top: auto;
-  padding: 0 0 1.5rem;
+  padding: 0 0 1rem;
 }
 
 .footer-panel {
