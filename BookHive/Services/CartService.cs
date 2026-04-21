@@ -34,11 +34,22 @@ public class CartService(ApplicationDbContext dbContext)
 
     public async Task AddItemAsync(string userId, int bookId, int quantity, CancellationToken cancellationToken = default)
     {
+        if (quantity <= 0)
+        {
+            throw new InvalidOperationException("Quantity must be at least 1.");
+        }
+
         var cart = await GetOrCreateCartAsync(userId, cancellationToken);
         var book = await dbContext.Books.FirstOrDefaultAsync(item => item.Id == bookId, cancellationToken)
             ?? throw new InvalidOperationException("The selected book could not be found.");
 
         var existingItem = cart.Items.FirstOrDefault(item => item.BookId == bookId);
+        var requestedQuantity = quantity + (existingItem?.Quantity ?? 0);
+        if (requestedQuantity > book.InventoryQuantity)
+        {
+            throw new InvalidOperationException($"Only {book.InventoryQuantity} copies of \"{book.Title}\" are currently in stock.");
+        }
+
         if (existingItem is null)
         {
             dbContext.CartItems.Add(new CartItem
@@ -71,6 +82,14 @@ public class CartService(ApplicationDbContext dbContext)
         }
         else
         {
+            var book = item.Book ?? await dbContext.Books.FirstOrDefaultAsync(book => book.Id == item.BookId, cancellationToken)
+                ?? throw new InvalidOperationException("The selected book could not be found.");
+
+            if (quantity > book.InventoryQuantity)
+            {
+                throw new InvalidOperationException($"Only {book.InventoryQuantity} copies of \"{book.Title}\" are currently in stock.");
+            }
+
             item.Quantity = quantity;
         }
 
