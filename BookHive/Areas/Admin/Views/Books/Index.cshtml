@@ -1,0 +1,71 @@
+@model IReadOnlyCollection<BookHive.Models.Book>
+
+@{
+    ViewData["Title"] = "Manage Books";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="h3 mb-1">Book catalog</h1>
+        <p class="text-muted mb-0">Create, update, and remove books available in BookHive.</p>
+    </div>
+    <a asp-area="Admin" asp-controller="Books" asp-action="Create" class="btn btn-primary">Add book</a>
+</div>
+
+@if (TempData["StatusMessage"] is string statusMessage)
+{
+    <div class="alert alert-success">@statusMessage</div>
+}
+
+<div class="table-responsive">
+    <table class="table table-striped align-middle">
+        <thead>
+            <tr>
+                <th>Cover</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Inventory</th>
+                <th class="text-end">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr>
+                    <td colspan="7" class="text-center text-muted py-4">No books have been added yet.</td>
+                </tr>
+            }
+            else
+            {
+                @foreach (var book in Model)
+                {
+                    <tr>
+                        <td>
+                            @if (!string.IsNullOrWhiteSpace(book.CoverImagePath))
+                            {
+                                <img src="@book.CoverImagePath" alt="@book.Title cover" class="rounded" style="width: 48px; height: 64px; object-fit: cover;" />
+                            }
+                            else
+                            {
+                                <div class="bg-light border rounded d-inline-flex align-items-center justify-content-center" style="width: 48px; height: 64px;">N/A</div>
+                            }
+                        </td>
+                        <td>@book.Title</td>
+                        <td>@book.Author</td>
+                        <td>@book.Category</td>
+                        <td>@book.Price.ToString("C")</td>
+                        <td>@book.InventoryQuantity</td>
+                        <td class="text-end">
+                            <a asp-area="Admin" asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id" class="btn btn-sm btn-outline-primary">Edit</a>
+                            <form asp-area="Admin" asp-controller="Books" asp-action="Delete" asp-route-id="@book.Id" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this book from the catalog?');">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,20 @@
+@model BookHive.ViewModels.Books.BookFormViewModel
+
+@{
+    ViewData["Title"] = "Edit Book";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h1 class="h3 mb-3">Edit book</h1>
+                <partial name="_BookForm" model="Model" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
