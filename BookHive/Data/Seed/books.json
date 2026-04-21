@@ -1,0 +1,162 @@
+[
+  {
+    "title": "Pride and Prejudice",
+    "author": "Jane Austen",
+    "category": "Classic Romance",
+    "price": 14.99,
+    "description": "A sharp, character-driven novel about first impressions, social expectations, and the slow work of mutual understanding.",
+    "inventoryQuantity": 18
+  },
+  {
+    "title": "Jane Eyre",
+    "author": "Charlotte Bronte",
+    "category": "Classic Fiction",
+    "price": 15.99,
+    "description": "An introspective coming-of-age story that balances moral conviction, emotional intensity, and gothic atmosphere.",
+    "inventoryQuantity": 14
+  },
+  {
+    "title": "Wuthering Heights",
+    "author": "Emily Bronte",
+    "category": "Gothic Fiction",
+    "price": 13.49,
+    "description": "A stormy, layered novel of obsession, inheritance, and the destructive force of unresolved grief.",
+    "inventoryQuantity": 10
+  },
+  {
+    "title": "Moby-Dick",
+    "author": "Herman Melville",
+    "category": "Adventure",
+    "price": 17.99,
+    "description": "A seafaring epic that turns a whale hunt into a study of ambition, symbolism, and obsession.",
+    "inventoryQuantity": 9
+  },
+  {
+    "title": "The Adventures of Sherlock Holmes",
+    "author": "Arthur Conan Doyle",
+    "category": "Mystery",
+    "price": 12.99,
+    "description": "A foundational detective collection featuring clever investigations, memorable villains, and precise deduction.",
+    "inventoryQuantity": 20
+  },
+  {
+    "title": "Dracula",
+    "author": "Bram Stoker",
+    "category": "Horror",
+    "price": 14.49,
+    "description": "An epistolary horror novel that builds dread through pursuit, folklore, and Victorian anxieties.",
+    "inventoryQuantity": 12
+  },
+  {
+    "title": "Frankenstein",
+    "author": "Mary Shelley",
+    "category": "Science Fiction",
+    "price": 13.99,
+    "description": "A pioneering speculative novel about creation, responsibility, and the human cost of isolation.",
+    "inventoryQuantity": 16
+  },
+  {
+    "title": "The Count of Monte Cristo",
+    "author": "Alexandre Dumas",
+    "category": "Historical Adventure",
+    "price": 18.99,
+    "description": "A sweeping revenge story built on imprisonment, reinvention, justice, and patience.",
+    "inventoryQuantity": 8
+  },
+  {
+    "title": "Little Women",
+    "author": "Louisa May Alcott",
+    "category": "Family Fiction",
+    "price": 14.25,
+    "description": "A warm, enduring portrait of four sisters shaping their values, ambitions, and independence.",
+    "inventoryQuantity": 15
+  },
+  {
+    "title": "The Secret Garden",
+    "author": "Frances Hodgson Burnett",
+    "category": "Children's Fiction",
+    "price": 11.99,
+    "description": "A restorative story of friendship, nature, and emotional renewal told through a hidden place brought back to life.",
+    "inventoryQuantity": 17
+  },
+  {
+    "title": "A Tale of Two Cities",
+    "author": "Charles Dickens",
+    "category": "Historical Fiction",
+    "price": 13.75,
+    "description": "A novel of sacrifice and social upheaval set against the violence and momentum of the French Revolution.",
+    "inventoryQuantity": 11
+  },
+  {
+    "title": "Great Expectations",
+    "author": "Charles Dickens",
+    "category": "Classic Fiction",
+    "price": 14.75,
+    "description": "A bildungsroman about class, ambition, shame, and the painful difference between self-image and reality.",
+    "inventoryQuantity": 13
+  },
+  {
+    "title": "The Picture of Dorian Gray",
+    "author": "Oscar Wilde",
+    "category": "Philosophical Fiction",
+    "price": 12.50,
+    "description": "A stylish, unsettling novel about vanity, moral decay, and the cost of preserving appearances.",
+    "inventoryQuantity": 14
+  },
+  {
+    "title": "The Time Machine",
+    "author": "H. G. Wells",
+    "category": "Science Fiction",
+    "price": 10.99,
+    "description": "A compact speculative adventure that uses time travel to examine class, progress, and decline.",
+    "inventoryQuantity": 19
+  },
+  {
+    "title": "The War of the Worlds",
+    "author": "H. G. Wells",
+    "category": "Science Fiction",
+    "price": 11.49,
+    "description": "An invasion narrative that combines scientific imagination with panic, survival, and imperial reversal.",
+    "inventoryQuantity": 12
+  },
+  {
+    "title": "Treasure Island",
+    "author": "Robert Louis Stevenson",
+    "category": "Adventure",
+    "price": 11.95,
+    "description": "A classic pirate adventure packed with maps, shifting loyalties, and unforgettable storytelling momentum.",
+    "inventoryQuantity": 21
+  },
+  {
+    "title": "The Call of the Wild",
+    "author": "Jack London",
+    "category": "Adventure",
+    "price": 10.75,
+    "description": "A survival tale that follows instinct, adaptation, and the pull of the untamed world.",
+    "inventoryQuantity": 18
+  },
+  {
+    "title": "The Scarlet Letter",
+    "author": "Nathaniel Hawthorne",
+    "category": "Classic Fiction",
+    "price": 12.25,
+    "description": "A morally layered novel about judgment, secrecy, and dignity under public scrutiny.",
+    "inventoryQuantity": 9
+  },
+  {
+    "title": "The Republic",
+    "author": "Plato",
+    "category": "Philosophy",
+    "price": 16.50,
+    "description": "A foundational philosophical dialogue exploring justice, education, governance, and the shape of an ideal society.",
+    "inventoryQuantity": 7
+  },
+  {
+    "title": "Meditations",
+    "author": "Marcus Aurelius",
+    "category": "Philosophy",
+    "price": 9.99,
+    "description": "A concise collection of Stoic reflections focused on discipline, perspective, and ethical self-governance.",
+    "inventoryQuantity": 24
+  }
+]

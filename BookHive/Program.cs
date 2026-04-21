@@ -43,9 +43,11 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
+    var environment = scope.ServiceProvider.GetRequiredService<IWebHostEnvironment>();
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     dbContext.Database.Migrate();
     await IdentitySeedService.SeedAsync(scope.ServiceProvider, builder.Configuration);
+    await BookSeedService.SeedAsync(scope.ServiceProvider, environment);
 }
 
 // Configure the HTTP request pipeline.

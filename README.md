@@ -29,6 +29,7 @@ BookHive is an ASP.NET Core MVC online bookstore backed by SQL Server LocalDB an
 - Checkout, order persistence, and order summaries
 - Admin dashboard for users, orders, inventory, and order status updates
 - API-backed cart interactions with client-side success and error feedback
+- Deterministic startup seeding for a 20-book demo catalog
 
 ## Configuration
 
@@ -42,7 +43,7 @@ Admin__Email=admin@bookhive.local
 Admin__Password=ChangeMe123
 ```
 
-The application automatically applies migrations and seeds `Admin` and `Customer` roles on startup. If the configured admin account does not exist, it is created automatically.
+The application automatically applies migrations and seeds `Admin` and `Customer` roles on startup. If the configured admin account does not exist, it is created automatically. When the `Books` table is empty, the app also imports a demo catalog from `BookHive/Data/Seed/books.json`.
 
 ## Run locally
 
@@ -64,3 +65,4 @@ dotnet test BookHive.slnx
 - Uploaded files are stored under `BookHive/wwwroot/uploads/`.
 - The initial migration is committed in `BookHive/Data/Migrations/`.
 - Cart validation prevents quantities from exceeding available inventory before checkout.
+- The demo catalog seeder only runs when the `Books` table is empty, so existing admin-managed inventory is left untouched.
