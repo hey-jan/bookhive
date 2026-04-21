@@ -1,0 +1,19 @@
+@{
+    ViewData["Title"] = "Delete account";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card border-danger shadow-sm">
+            <div class="card-body p-4">
+                <h1 class="h3 text-danger">Delete account</h1>
+                <p class="mb-4">This action permanently removes your BookHive account and its related cart and order data.</p>
+
+                <form asp-action="DeleteConfirmed" method="post">
+                    <button type="submit" class="btn btn-danger">Delete my account</button>
+                    <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

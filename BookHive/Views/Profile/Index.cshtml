@@ -1,0 +1,46 @@
+@model BookHive.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        @if (TempData["StatusMessage"] is string statusMessage)
+        {
+            <div class="alert alert-success">@statusMessage</div>
+        }
+
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-start mb-4">
+                    <div>
+                        <h1 class="h3 mb-1">My profile</h1>
+                        <p class="text-muted mb-0">Manage your BookHive account information.</p>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <a asp-action="Edit" class="btn btn-primary">Edit profile</a>
+                        <a asp-action="Delete" class="btn btn-outline-danger">Delete account</a>
+                    </div>
+                </div>
+
+                <dl class="row mb-0">
+                    <dt class="col-sm-3">Full name</dt>
+                    <dd class="col-sm-9">@Model.FirstName @Model.LastName</dd>
+
+                    <dt class="col-sm-3">Email</dt>
+                    <dd class="col-sm-9">@Model.Email</dd>
+
+                    <dt class="col-sm-3">Phone</dt>
+                    <dd class="col-sm-9">@(string.IsNullOrWhiteSpace(Model.PhoneNumber) ? "Not provided" : Model.PhoneNumber)</dd>
+
+                    <dt class="col-sm-3">Address</dt>
+                    <dd class="col-sm-9">@(string.IsNullOrWhiteSpace(Model.Address) ? "Not provided" : Model.Address)</dd>
+
+                    <dt class="col-sm-3">Joined</dt>
+                    <dd class="col-sm-9">@Model.CreatedAtUtc.ToLocalTime().ToString("MMMM dd, yyyy")</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
