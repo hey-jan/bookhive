@@ -25,4 +25,9 @@ public class EditProfileViewModel
 
     [StringLength(500)]
     public string? Address { get; set; }
+
+    [Display(Name = "Profile image")]
+    public IFormFile? ProfileImage { get; set; }
+
+    public string? ExistingProfileImagePath { get; set; }
 }

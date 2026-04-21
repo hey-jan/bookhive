@@ -1,4 +1,5 @@
 using BookHive.Models;
+using BookHive.Services;
 using BookHive.ViewModels.Profile;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -9,7 +10,8 @@ namespace BookHive.Controllers;
 [Authorize]
 public class ProfileController(
     UserManager<ApplicationUser> userManager,
-    SignInManager<ApplicationUser> signInManager) : Controller
+    SignInManager<ApplicationUser> signInManager,
+    IFileStorageService fileStorageService) : Controller
 {
     [HttpGet]
     public async Task<IActionResult> Index()
@@ -28,7 +30,8 @@ public class ProfileController(
             LastName = user.LastName ?? string.Empty,
             Email = user.Email ?? string.Empty,
             PhoneNumber = user.PhoneNumber,
-            Address = user.Address
+            Address = user.Address,
+            ExistingProfileImagePath = user.ProfileImagePath
         };
 
         return View(model);
@@ -36,7 +39,7 @@ public class ProfileController(
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(EditProfileViewModel model)
+    public async Task<IActionResult> Edit(EditProfileViewModel model, CancellationToken cancellationToken)
     {
         if (!ModelState.IsValid)
         {
@@ -44,6 +47,13 @@ public class ProfileController(
         }
 
         var user = await GetCurrentUserAsync();
+
+        if (model.ProfileImage is not null)
+        {
+            fileStorageService.DeleteFile(user.ProfileImagePath);
+            user.ProfileImagePath = await fileStorageService.SaveFileAsync(model.ProfileImage, "profiles", cancellationToken);
+        }
+
         user.FirstName = model.FirstName;
         user.LastName = model.LastName;
         user.PhoneNumber = model.PhoneNumber;
@@ -85,6 +95,7 @@ public class ProfileController(
     public async Task<IActionResult> DeleteConfirmed()
     {
         var user = await GetCurrentUserAsync();
+        fileStorageService.DeleteFile(user.ProfileImagePath);
         var deleteResult = await userManager.DeleteAsync(user);
 
         if (!deleteResult.Succeeded)
