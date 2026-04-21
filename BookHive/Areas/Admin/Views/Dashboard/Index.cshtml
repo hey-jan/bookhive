@@ -1,0 +1,150 @@
+@model BookHive.ViewModels.Admin.AdminDashboardViewModel
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="h3 mb-1">Admin dashboard</h1>
+        <p class="text-muted mb-0">Monitor users, orders, and inventory from one place.</p>
+    </div>
+    <a asp-area="Admin" asp-controller="Books" asp-action="Index" class="btn btn-primary">Manage books</a>
+</div>
+
+@if (TempData["StatusMessage"] is string statusMessage)
+{
+    <div class="alert alert-success">@statusMessage</div>
+}
+
+<div class="row g-3 mb-4">
+    <div class="col-md-6 col-xl-3">
+        <div class="metric-card h-100">
+            <strong>@Model.UserCount</strong>
+            <span>Registered users</span>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="metric-card h-100">
+            <strong>@Model.OrderCount</strong>
+            <span>Total orders</span>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="metric-card h-100">
+            <strong>@Model.LowStockCount</strong>
+            <span>Low-stock books</span>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="metric-card h-100">
+            <strong>@Model.RevenueTotal.ToString("C")</strong>
+            <span>Recorded revenue</span>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-xl-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body p-4">
+                <h2 class="h5 mb-3">Recent users</h2>
+                <ul class="list-group list-group-flush">
+                    @foreach (var user in Model.Users)
+                    {
+                        <li class="list-group-item px-0 d-flex justify-content-between">
+                            <div>
+                                <div class="fw-semibold">@(string.IsNullOrWhiteSpace(user.FullName) ? "Unnamed user" : user.FullName)</div>
+                                <div class="text-muted small">@user.Email</div>
+                            </div>
+                            <span class="text-muted small">@user.CreatedAtUtc.ToLocalTime().ToString("MMM dd")</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-8">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h2 class="h5 mb-3">Recent orders</h2>
+                <div class="table-responsive">
+                    <table class="table align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th>Order</th>
+                                <th>Customer</th>
+                                <th>Total</th>
+                                <th>Placed</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var order in Model.Orders)
+                            {
+                                <tr>
+                                    <td>#@order.Id</td>
+                                    <td>@order.CustomerEmail</td>
+                                    <td>@order.TotalAmount.ToString("C")</td>
+                                    <td>@order.PlacedAtUtc.ToLocalTime().ToString("MMM dd, yyyy")</td>
+                                    <td>
+                                        <form asp-area="Admin" asp-controller="Dashboard" asp-action="UpdateOrderStatus" method="post" class="d-flex gap-2">
+                                            <input type="hidden" name="orderId" value="@order.Id" />
+                                            <select name="status" class="form-select form-select-sm">
+                                                @foreach (var status in Enum.GetValues<BookHive.Models.OrderStatus>())
+                                                {
+                                                    <option value="@status" selected="@(status == order.Status)">@status</option>
+                                                }
+                                            </select>
+                                            <button type="submit" class="btn btn-sm btn-outline-primary">Save</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow-sm mt-4">
+    <div class="card-body p-4">
+        <h2 class="h5 mb-3">Low inventory</h2>
+        <div class="table-responsive">
+            <table class="table align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>In stock</th>
+                        <th class="text-end">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.LowStockBooks.Any())
+                    {
+                        <tr>
+                            <td colspan="4" class="text-center text-muted py-4">No low-stock books right now.</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach (var book in Model.LowStockBooks)
+                        {
+                            <tr>
+                                <td>@book.Title</td>
+                                <td>@book.Author</td>
+                                <td>@book.InventoryQuantity</td>
+                                <td class="text-end">
+                                    <a asp-area="Admin" asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id" class="btn btn-sm btn-outline-primary">Restock</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
