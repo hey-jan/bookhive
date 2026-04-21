@@ -2,13 +2,39 @@
     ViewData["Title"] = "Home";
 }
 
-<div class="px-4 py-5 my-5 text-center">
-    <h1 class="display-4 fw-bold">BookHive</h1>
-    <div class="col-lg-6 mx-auto">
-        <p class="lead mb-4">Browse curated titles, manage your profile, and order books from a single storefront built with ASP.NET Core and EF Core.</p>
-        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-            <a asp-controller="Account" asp-action="Register" class="btn btn-primary btn-lg px-4 gap-3">Create account</a>
-            <a asp-controller="Account" asp-action="Login" class="btn btn-outline-secondary btn-lg px-4">Login</a>
+<section class="surface-panel hero-panel p-4 p-lg-5">
+    <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+            <div class="eyebrow mb-3">Modern Bookstore</div>
+            <h1 class="display-hero fw-bold mb-3">Built for readers who buy with intention.</h1>
+            <p class="lead text-secondary mb-4">BookHive combines catalog browsing, secure accounts, cart management, and checkout into a single responsive bookstore experience built on ASP.NET Core and EF Core.</p>
+            <div class="d-flex flex-wrap gap-3">
+                <a asp-controller="Books" asp-action="Index" class="btn btn-primary btn-lg px-4">Browse catalog</a>
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <a asp-controller="Cart" asp-action="Index" class="btn btn-outline-secondary btn-lg px-4">Open cart</a>
+                }
+                else
+                {
+                    <a asp-controller="Account" asp-action="Register" class="btn btn-outline-secondary btn-lg px-4">Create account</a>
+                }
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="hero-metrics">
+                <div class="metric-card">
+                    <strong>Catalog</strong>
+                    <span>Organize books by category, price, and stock.</span>
+                </div>
+                <div class="metric-card">
+                    <strong>Accounts</strong>
+                    <span>Identity-backed registration, login, and profile workflows.</span>
+                </div>
+                <div class="metric-card">
+                    <strong>Checkout</strong>
+                    <span>Persist orders, summaries, and inventory changes in BookHiveDB.</span>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</section>
