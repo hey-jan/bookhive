@@ -25,7 +25,7 @@
         <div class="d-flex gap-2">
             @if (User.Identity?.IsAuthenticated == true)
             {
-                <form asp-controller="Cart" asp-action="Add" method="post">
+                <form asp-controller="Cart" asp-action="Add" method="post" data-api-cart-form data-api-endpoint="/api/cart/items">
                     <input type="hidden" name="bookId" value="@Model.Id" />
                     <input type="hidden" name="quantity" value="1" />
                     <button type="submit" class="btn btn-primary">Add to cart</button>

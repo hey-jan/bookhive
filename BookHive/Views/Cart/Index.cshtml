@@ -53,7 +53,7 @@ else
                             </td>
                             <td>@item.UnitPrice.ToString("C")</td>
                             <td style="max-width: 180px;">
-                                <form asp-action="UpdateQuantity" method="post" class="d-flex gap-2">
+                                <form asp-action="UpdateQuantity" method="post" class="d-flex gap-2" data-api-cart-form data-api-endpoint="/api/cart/items" data-api-method="PUT" data-reload-on-success="true">
                                     <input type="hidden" name="cartItemId" value="@item.Id" />
                                     <input type="number" name="quantity" value="@item.Quantity" min="0" class="form-control" />
                                     <button type="submit" class="btn btn-outline-primary">Update</button>
@@ -61,7 +61,7 @@ else
                             </td>
                             <td>@item.LineTotal.ToString("C")</td>
                             <td class="text-end">
-                                <form asp-action="Remove" method="post" class="d-inline">
+                                <form asp-action="Remove" method="post" class="d-inline" data-api-cart-form data-api-endpoint="/api/cart/items" data-api-method="DELETE" data-reload-on-success="true">
                                     <input type="hidden" name="cartItemId" value="@item.Id" />
                                     <button type="submit" class="btn btn-outline-danger">Remove</button>
                                 </form>
