@@ -4,34 +4,36 @@
     ViewData["Title"] = Model.Title;
 }
 
-<div class="row g-5">
-    <div class="col-lg-4">
-        @if (!string.IsNullOrWhiteSpace(Model.CoverImagePath))
-        {
-            <img src="@Model.CoverImagePath" alt="@Model.Title cover" class="img-fluid rounded shadow-sm" />
-        }
-        else
-        {
-            <div class="border rounded bg-light d-flex align-items-center justify-content-center text-muted" style="min-height: 420px;">No cover available</div>
-        }
-    </div>
-    <div class="col-lg-8">
-        <span class="badge bg-secondary-subtle text-secondary-emphasis">@Model.Category</span>
-        <h1 class="display-6 mt-3">@Model.Title</h1>
-        <p class="lead text-muted">by @Model.Author</p>
-        <p class="fs-4 fw-semibold">@Model.Price.ToString("C")</p>
-        <p>@Model.Description</p>
-        <p class="text-muted">In stock: @Model.InventoryQuantity</p>
-        <div class="d-flex gap-2">
-            @if (User.Identity?.IsAuthenticated == true)
+<div class="surface-panel p-4 p-lg-5 mb-5">
+    <div class="row g-5">
+        <div class="col-lg-4">
+            @if (!string.IsNullOrWhiteSpace(Model.CoverImagePath))
             {
-                <form asp-controller="Cart" asp-action="Add" method="post" data-api-cart-form data-api-endpoint="/api/cart/items">
-                    <input type="hidden" name="bookId" value="@Model.Id" />
-                    <input type="hidden" name="quantity" value="1" />
-                    <button type="submit" class="btn btn-primary">Add to cart</button>
-                </form>
+                <img src="@Model.CoverImagePath" alt="@Model.Title cover" class="img-fluid book-cover-lg w-100" />
             }
-            <a asp-controller="Books" asp-action="Index" class="btn btn-outline-secondary">Back to catalog</a>
+            else
+            {
+                <div class="border rounded bg-light d-flex align-items-center justify-content-center text-muted" style="min-height: 420px;">No cover available</div>
+            }
+        </div>
+        <div class="col-lg-8">
+            <span class="badge bg-secondary-subtle text-secondary-emphasis">@Model.Category</span>
+            <h1 class="display-6 mt-3">@Model.Title</h1>
+            <p class="lead text-muted">by @Model.Author</p>
+            <p class="fs-4 fw-semibold">@Model.Price.ToString("C")</p>
+            <p>@Model.Description</p>
+            <p class="text-muted">In stock: @Model.InventoryQuantity</p>
+            <div class="d-flex gap-2">
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <form asp-controller="Cart" asp-action="Add" method="post" data-api-cart-form data-api-endpoint="/api/cart/items">
+                        <input type="hidden" name="bookId" value="@Model.Id" />
+                        <input type="hidden" name="quantity" value="1" />
+                        <button type="submit" class="btn btn-primary">Add to cart</button>
+                    </form>
+                }
+                <a asp-controller="Books" asp-action="Index" class="btn btn-outline-secondary">Back to catalog</a>
+            </div>
         </div>
     </div>
 </div>

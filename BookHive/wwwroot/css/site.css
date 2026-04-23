@@ -148,6 +148,31 @@ a:hover {
   border: 1px solid var(--bh-border);
   border-radius: 1.25rem;
   box-shadow: var(--bh-shadow);
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.book-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 30px 60px rgba(38, 27, 16, 0.16);
+}
+
+.book-cover {
+  border-top-left-radius: 1.25rem;
+  border-top-right-radius: 1.25rem;
+  border-left: 6px solid rgba(0, 0, 0, 0.08);
+  filter: contrast(0.95);
+}
+
+.book-cover-lg {
+  border-radius: 0.5rem 1rem 1rem 0.5rem;
+  border-left: 14px solid rgba(0, 0, 0, 0.1);
+  box-shadow: -15px 0 25px rgba(0,0,0,0.15), 5px 5px 20px rgba(0,0,0,0.08);
+  filter: contrast(0.95);
+}
+
+.filter-panel {
+  background: rgba(255, 252, 247, 0.85);
+  backdrop-filter: blur(8px);
 }
 
 .book-card .card-img-top {

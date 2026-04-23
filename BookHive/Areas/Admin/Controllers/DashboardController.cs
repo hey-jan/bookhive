@@ -1,6 +1,7 @@
 using BookHive.Data;
 using BookHive.Models;
 using BookHive.ViewModels.Admin;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,15 +21,19 @@ public class DashboardController(ApplicationDbContext dbContext) : Controller
             OrderCount = await dbContext.Orders.CountAsync(cancellationToken),
             LowStockCount = await dbContext.Books.CountAsync(book => book.InventoryQuantity <= 5, cancellationToken),
             RevenueTotal = await dbContext.Orders.SumAsync(order => (decimal?)order.TotalAmount, cancellationToken) ?? 0m,
-            Users = await dbContext.Users
-                .OrderByDescending(user => user.CreatedAtUtc)
-                .Take(8)
-                .Select(user => new AdminUserViewModel
+            Users = await (
+                from user in dbContext.Users
+                join userRole in dbContext.Set<IdentityUserRole<string>>() on user.Id equals userRole.UserId
+                join role in dbContext.Roles on userRole.RoleId equals role.Id
+                where role.Name == "Customer"
+                orderby user.CreatedAtUtc descending
+                select new AdminUserViewModel
                 {
                     FullName = $"{user.FirstName} {user.LastName}".Trim(),
                     Email = user.Email ?? string.Empty,
                     CreatedAtUtc = user.CreatedAtUtc
                 })
+                .Take(8)
                 .ToListAsync(cancellationToken),
             Orders = await dbContext.Orders
                 .Include(order => order.User)

@@ -94,6 +94,12 @@ public class AccountController(
                 return Redirect(model.ReturnUrl);
             }
 
+            var user = await userManager.FindByEmailAsync(model.Email);
+            if (user is not null && await userManager.IsInRoleAsync(user, "Admin"))
+            {
+                return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
+            }
+
             return RedirectToAction("Index", "Home");
         }
 

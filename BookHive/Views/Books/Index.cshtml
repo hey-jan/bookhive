@@ -53,10 +53,10 @@
         @foreach (var book in Model.Books)
         {
             <div class="col-md-6 col-xl-4">
-                <div class="card h-100 shadow-sm">
+                <div class="book-card h-100">
                     @if (!string.IsNullOrWhiteSpace(book.CoverImagePath))
                     {
-                        <img src="@book.CoverImagePath" class="card-img-top" alt="@book.Title cover" style="height: 320px; object-fit: cover;" />
+                        <img src="@book.CoverImagePath" class="card-img-top book-cover" alt="@book.Title cover" style="height: 320px; object-fit: cover;" />
                     }
                     <div class="card-body d-flex flex-column">
                         <span class="text-muted small text-uppercase">@book.Category</span>
